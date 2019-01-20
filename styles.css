@@ -1,0 +1,38 @@
+body {
+  text-align: center;
+  margin: 0;
+  font-family: American Typewriter, serif;
+}
+
+h1 {
+  padding: 20px 0;
+  background-color: yellow;
+}
+
+#intro {
+  font-size: 20px;
+  margin: 40px;
+}
+
+#info input {
+  margin: 10px;
+}
+
+#info select {
+  margin-bottom: 20px;
+}
+
+#letter {
+  border: solid grey 1px;
+  margin: 40px auto;
+  width: 500px;
+  height: 600px;
+  padding: 20px;
+  font-size: 14px;
+  text-align: justify;
+  line-height: 30px;
+}
+
+#letter span {
+  display: none;
+}
