@@ -1,36 +1,69 @@
 <html>
   <head>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
   </head>
   <body>
     <h1>We Got You Covered Letters</h1>
 
     <div id="intro">
-      Need letter? Worry don't! We Got You Covered Letters.
+      Need letter? Worry not! We Got You Covered Letters.
     </div>
 
     <div id="info">
 
         <div>
-        <select id="type">
-          <option value="Choose">What you need?</option>
-          <option value="travel-ticket">Ticket for travel</option>
-          <!-- <option value="job-long">Get job (long)</option> -->
-          <option value="job-short">Get job (short)</option>
+        <select onchange="select()" id="type">
+          <option value="choose">What you need?</option>
+          <option value="ticket-for-travel">Ticket for travel</option>
+          <option value="get-job-long">Get job (long)</option>
+          <option value="get-job-short">Get job (short)</option>
           <option value="quit-job">Quit job</option>
-          <!-- <option value="best-man">Best man speech</option> -->
+          <option value="best-man">Best man speech</option>
         </select>
         </div>
-        First name: <input type="text" id="first-name"><br>
-        Middle initial: <input type="text" id="middle-initial"><br>
-        Last name: <input type="text" id="last-name"><br>
-        <input type="button" value="submit" onclick="submit()">
+
+        <div id="ticket-for-travel" class="input">
+          First name: <input type="text" id="first-name-ticket"><br>
+          Middle initial: <input type="text" id="middle-initial-ticket"><br>
+          Last name: <input type="text" id="last-name-ticket"><br>
+          Destination: <input type="text" id="destination"><br>
+        </div>
+
+        <div id="get-job-short" class="input">
+          Company: <input type="text" id="company-job-short"><br>
+          Company person: <input type="text" id="company-person"><br>
+          Job position: <input type="text" id="job-position"><br>
+        </div>
+
+        <div id="get-job-long" class="input">
+          Your first name: <input type="text" id="first-name-job"><br>
+          Your middle initial: <input type="text" id="middle-initial-job"><br>
+          Your last name: <input type="text" id="last-name-job"><br>
+          Company: <input type="text" id="company-job-long"><br>
+        </div>
+
+        <div id="best-man" class="input">
+          Bride first name: <input type="text" id="bride"><br>
+          Groom first name: <input type="text" id="groom"><br>
+        </div>
+
+        <div id="terms-submit">
+          <div id="terms">
+            <div id="terms-inner">
+              <label id="terms" for="terms-checkbox"  style="word-wrap:break-word">
+                <input id="terms-checkbox"  type="checkbox" value="test" />I accept the Terms Of Service
+              </label>
+            </div>
+          </div>
+          <button id="submit" type="button" value="SUBMIT" onclick="submit()">SUBMIT</button>
+        </div>
 
     </div>
 
     <div id="letter">
-      
+
     </div>
   </body>
 </html>
