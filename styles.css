@@ -65,7 +65,7 @@ button {
 
 #letter {
   box-sizing: border-box;
-  margin: 40px auto;
+  margin: 40px auto 0 auto;
   width: 578px;
   height: 750px;
   padding: 82px 40px 0 105px;
@@ -85,11 +85,15 @@ button {
   display: none;
 }
 
+#new-letter {
+  margin-bottom: 40px;
+}
+
 @media screen and (max-width: 590px) {
 
   #letter {
     width: 359px;
-    height: 500px;
+    height: 470px;
     padding: 46px 30px 0 63px;
     line-height: 21px;
     font-size: 14px;

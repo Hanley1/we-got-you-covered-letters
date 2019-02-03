@@ -3,17 +3,19 @@
 function select() {
 
   var type = document.getElementById('type').value;
+  hideInputs();
+  document.getElementById('terms-submit').style.display = type === 'choose' ? 'none' : 'block';
+
+  if (type !== 'choose') {
+    document.getElementById(type).style.display = 'block';
+  }
+}
+
+function hideInputs() {
   var inputs = document.getElementsByClassName('input');
 
   for (var i = 0; i < inputs.length; i++) {
     inputs[i].style.display = 'none';
-  }
-
-  var termsSubmit = document.getElementById('terms-submit');
-  termsSubmit.style.display = type === 'choose' ? 'none' : 'block';
-
-  if (type !== 'choose') {
-    document.getElementById(type).style.display = 'block';
   }
 }
 
@@ -83,19 +85,38 @@ function submit() {
   }
 
   buildLetter(paragraphs);
+  scrollLetterIntoView();
 }
 
 function buildLetter(paragraphs) {
 
+  clearLetter();
   var letterEl = document.getElementById('letter');
-
-  while (letterEl.hasChildNodes()) {
-    letterEl.removeChild(letterEl.lastChild);
-  }
 
   for (var i = 0; i < paragraphs.length; i++) {
     var p = document.createElement('p');
     p.innerHTML = paragraphs[i];
     letterEl.appendChild(p);
   }
+}
+
+function newLetter() {
+  clearLetter();
+  hideInputs();
+  document.getElementById('terms-submit').style.display = 'none';
+  document.getElementById('type').value = 'choose';
+  window.scroll(0, 0);
+}
+
+function clearLetter() {
+
+  var letterEl = document.getElementById('letter');
+
+  while (letterEl.hasChildNodes()) {
+    letterEl.removeChild(letterEl.lastChild);
+  }
+}
+
+function scrollLetterIntoView() {
+  window.scroll(0, 550);
 }
