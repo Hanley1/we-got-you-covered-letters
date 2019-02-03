@@ -103,3 +103,29 @@ button {
     margin-bottom: 22px;
   }
 }
+
+#page-turn {
+  display: none;
+}
+
+#page-previous,#page-next {
+  display: inline-block;
+  cursor: pointer;
+}
+
+#page-previous:active,#page-next:active {
+  color: gold;
+}
+
+#page-previous {
+  margin-right: 10px;
+}
+
+#page-next {
+  margin-left: 10px;
+}
+
+#page-previous.disabled,#page-next.disabled {
+  opacity: 0.2;
+  cursor: default;
+}
