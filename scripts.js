@@ -36,7 +36,7 @@ function newLetter() {
 
 function clearLetter() {
 
-  var letterEl = document.getElementById('letter');
+  var letterEl = document.getElementById('letterContent');
 
   while (letterEl.hasChildNodes()) {
     letterEl.removeChild(letterEl.lastChild);
@@ -63,12 +63,13 @@ function buildLetter(type, pageIndex) {
   var pages = getLetterPages(type);
   var paragraphs = pages[pageIndex];
 
-  var letterEl = document.getElementById('letter');
+  var letterEl = document.getElementById('letterContent');
 
   for (var i = 0; i < paragraphs.length; i++) {
     var p = document.createElement('p');
     p.innerHTML = paragraphs[i];
     letterEl.appendChild(p);
+    console.log(letterEl);
   }
 }
 
@@ -114,8 +115,6 @@ function updatePageTurnOpacity() {
       }
     }
   }
-
-
 }
 
 function getLetterPages(type) {
@@ -130,11 +129,11 @@ function getLetterPages(type) {
     var fullName = lastName.toLowerCase() + ' ' + firstName.toLowerCase() + ' ' + middleInitial.toUpperCase();
     var destination = document.getElementById('destination').value;
 
-    pages = [[
+    pages = paginate([
       'Hello and God bless.',
       'How bout those saints, huh? But I digress. End small talk here.',
       'Name ' + fullName + '. Ticket ' + destination.toLowerCase().replace(',','') + ' round trip. That’s a lovely blouse sir or ma’am or however you might identify. Name ' + fullName + ' Looks like it may snow. What you think about that topic sir or ma’am or however you might identify? Value opinion others.'
-    ]];
+    ]);
 
   } else if (type === 'get-job-short') {
 
@@ -142,10 +141,10 @@ function getLetterPages(type) {
     var companyPerson = document.getElementById('company-person').value;
     var jobPosition = document.getElementById('job-position').value;
 
-    pages = [[
+    pages = paginate([
       'Dear ' + companyPerson,
       'I’m so horny I could fuck the gap in my employment history. But seriously folks. I was excited to see your advertisement for ' + jobPosition + ' at ' + company + '.'
-    ]];
+    ]);
 
   } else if (type === 'get-job-long') {
 
@@ -155,35 +154,75 @@ function getLetterPages(type) {
     fullName = lastName+ ', ' + firstName + ' ' + middleInitial + '.';
     var company = document.getElementById('company-job-long').value;
 
-    pages = [
-      [
-        'Mrs. Gert Himmelfarb<br>C/o the ' + company + '<br>1223 Walla Walla Washington',
-        'Dear sir or sirs,',
-        'But I digress. I was very pleased to see the advertisement for chief risk officer at your esteemed company. Good fit I thinks I am. Name ' + fullName + ' Like to start with a quote. “Life is what happens when you are busy making other plans.” - Wyatt Earp. End intro.',
-        'The esteemed Cornhole university with BS and MA in psychologist from esteemed Harvard law academy. Much learn. '
-      ],
-      [
-        fullName + ' Is name, risk management is game. Punctilious, detail oriented and meticulous individual who hates redundancy and imperfection in all flaccid of life and work.',
-        'Great leader. Enjoy reading, getting baked at theaters and write play and rubbing one out. Name ' + fullName.replace(',','') + ' Do you use quantitative method at ' + company + '? I can help with transition you stupid fucking asshole cunt.',
-        'End with a joke. Knock knock! Who’s there? Yogurt. Yogurt who? Yo-Gert, it’s me ' + firstName + '.',
-        'Would love the opportunity to further discuss my qualifications.',
-        'Kind regards,<br>Name ' + fullName.replace(',','')
-      ]
-    ];
+    pages = paginate([
+      'Mrs. Gert Himmelfarb<br>C/o the ' + company + '<br>1223 Walla Walla Washington',
+      'Dear sir or sirs,',
+      'But I digress. I was very pleased to see the advertisement for chief risk officer at your esteemed company. Good fit I thinks I am. Name ' + fullName + ' Like to start with a quote. “Life is what happens when you are busy making other plans.” - Wyatt Earp. End intro.',
+      'The esteemed Cornhole university with BS and MA in psychologist from esteemed Harvard law academy. Much learn. ',
+      fullName + ' Is name, risk management is game. Punctilious, detail oriented and meticulous individual who hates redundancy and imperfection in all flaccid of life and work.',
+      'Great leader. Enjoy reading, getting baked at theaters and write play and rubbing one out. Name ' + fullName.replace(',','') + ' Do you use quantitative method at ' + company + '? I can help with transition you stupid fucking asshole cunt.',
+      'End with a joke. Knock knock! Who’s there? Yogurt. Yogurt who? Yo-Gert, it’s me ' + firstName + '.',
+      'Would love the opportunity to further discuss my qualifications.',
+      'Kind regards,<br>Name ' + fullName.replace(',','')
+    ]);
 
   } else if (type === 'quit-job') {
 
-    pages = [[
+    pages = paginate([
       'Fuck you. Job bad. Need like hole in head. Do better I.'
-    ]]
+    ]);
+
   } else if (type === 'best-man') {
 
     var bride = document.getElementById('bride').value;
     var groom = document.getElementById('groom').value;
 
-    pages = [[
+    pages = paginate([
       groom + ' meet ' + bride + '. Love first site. Prior ' + bride + ', ' + groom + ' dip wick many unsavory female. There this one time, oh ' + groom.toLowerCase() + ' blush so I digress. But seriously folks, ' + bride + ' make ' + groom.toLowerCase()  + ' more happy ever see. She part of family. To ' + bride + ' and ' + groom.toLowerCase() + '. Here here!'
-    ]]
+    ]);
+  }
+
+  return pages;
+}
+
+function paginate(paragraphs) {
+
+  var letterEl = document.getElementById('letter');
+  var contentEl = document.getElementById('paginationTest');
+  var maxHeight = letterEl.clientHeight * 0.8;
+
+  var doParagraphsFit = function(ps) {
+
+    for (var i = 0; i < ps.length; i++) {
+      var p = document.createElement('p');
+      p.innerHTML = ps[i];
+      contentEl.appendChild(p);
+    }
+
+    var fits = contentEl.clientHeight < maxHeight;
+
+    while (contentEl.hasChildNodes()) {
+      contentEl.removeChild(contentEl.lastChild);
+    }
+
+    return fits;
+  };
+
+  var pages = [];
+  var page = [];
+
+  for (var i = 0; i < paragraphs.length; i++) {
+
+    page.push(paragraphs[i]);
+
+    if (!doParagraphsFit(page)) {
+      page.pop();
+      pages.push(page.slice());
+      page = [];
+      i--;
+    } else if (i === paragraphs.length - 1) {
+      pages.push(page.slice());
+    }
   }
 
   return pages;
