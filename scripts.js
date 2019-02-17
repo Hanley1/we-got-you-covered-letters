@@ -69,7 +69,6 @@ function buildLetter(type, pageIndex) {
     var p = document.createElement('p');
     p.innerHTML = paragraphs[i];
     letterEl.appendChild(p);
-    console.log(letterEl);
   }
 }
 
@@ -208,6 +207,16 @@ function paginate(paragraphs) {
     return fits;
   };
 
+  var getIndexOfPageBreak = function(ps) {
+
+    while (!doParagraphsFit(ps)) {
+      var lastIndex = ps[ps.length-1].lastIndexOf(" ");
+      ps[ps.length-1] = ps[ps.length-1].substring(0, lastIndex);
+    }
+
+    return ps[ps.length-1].length;
+  };
+
   var pages = [];
   var page = [];
 
@@ -216,9 +225,14 @@ function paginate(paragraphs) {
     page.push(paragraphs[i]);
 
     if (!doParagraphsFit(page)) {
+      var pageBreakIndex = getIndexOfPageBreak(page.slice());
+      var pBeforeBreak = paragraphs[i].slice(0, pageBreakIndex);
+      var pAfterBreak = paragraphs[i].slice(pageBreakIndex);
       page.pop();
+      page.push(pBeforeBreak);
       pages.push(page.slice());
       page = [];
+      paragraphs[i] = pAfterBreak;
       i--;
     } else if (i === paragraphs.length - 1) {
       pages.push(page.slice());
