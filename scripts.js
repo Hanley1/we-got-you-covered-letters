@@ -58,20 +58,33 @@ function positionPencil() {
 }
 
 function submit() {
-  var letterEl = document.getElementById('letterContent');
-  letterEl.style.visibility = 'hidden';
-  var pencilEl = document.getElementById('pencil');
-  pencilEl.style.visibility = 'visible';
-  positionPencil();
-  currentPage = 0;
-  buildLetter(document.getElementById('type').value, 0);
-  updatePageTurnOpacity();
-  scrollLetterIntoView();
 
-  setTimeout(function(){
-    pencilEl.style.visibility = 'hidden';
-    letterEl.style.visibility = 'visible';
-  }, 2000);
+  var termsLabel = document.getElementById('terms-label');
+  termsLabel.style.color = 'black';
+
+  if (document.getElementById('terms-checkbox').checked) {
+
+    var letterEl = document.getElementById('letterContent');
+    letterEl.style.visibility = 'hidden';
+    var pencilEl = document.getElementById('pencil');
+    pencilEl.style.visibility = 'visible';
+    positionPencil();
+    currentPage = 0;
+    buildLetter(document.getElementById('type').value, 0);
+    updatePageTurnOpacity();
+    scrollLetterIntoView();
+
+    setTimeout(function(){
+      pencilEl.style.visibility = 'hidden';
+      letterEl.style.visibility = 'visible';
+    }, 2000);
+
+  } else {
+
+    termsLabel.style.color = 'red';
+  }
+
+
 
 }
 
