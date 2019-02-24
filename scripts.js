@@ -2,6 +2,7 @@ var currentPage = 0;
 
 function select() {
 
+  clearLetter();
   var type = document.getElementById('type').value;
   hideInputs();
   document.getElementById('terms-submit').style.display = type === 'choose' ? 'none' : 'block';
@@ -12,7 +13,6 @@ function select() {
     if (infoEl !== null) {
       infoEl.style.display = 'block';
     }
-
   }
 }
 
