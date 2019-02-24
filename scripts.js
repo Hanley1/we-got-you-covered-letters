@@ -50,11 +50,29 @@ function scrollLetterIntoView() {
   window.scroll(0, 100 + header + intro + info);
 }
 
+function positionPencil() {
+  var header = document.getElementById('header').clientHeight;
+  var intro = document.getElementById('intro').clientHeight;
+  var info = document.getElementById('info').clientHeight;
+  document.getElementById('pencil').style.top = header + intro + info + 250 + 'px';
+}
+
 function submit() {
+  var letterEl = document.getElementById('letterContent');
+  letterEl.style.visibility = 'hidden';
+  var pencilEl = document.getElementById('pencil');
+  pencilEl.style.visibility = 'visible';
+  positionPencil();
   currentPage = 0;
   buildLetter(document.getElementById('type').value, 0);
   updatePageTurnOpacity();
   scrollLetterIntoView();
+
+  setTimeout(function(){
+    pencilEl.style.visibility = 'hidden';
+    letterEl.style.visibility = 'visible';
+  }, 2000);
+
 }
 
 function buildLetter(type, pageIndex) {

@@ -85,6 +85,26 @@ button {
   display: none;
 }
 
+#letter img {
+  visibility: hidden;
+  position: absolute;
+  width: 100px;
+  x-transition: all 1s ease-in-out;
+  animation: ani 1s infinite;
+}
+
+@keyframes ani {
+  0% {
+    left: 40%;
+  }
+  50% {
+    left: 60%;
+  }
+  100% {
+    left: 40%;
+  }
+}
+
 #new-letter {
   margin-bottom: 40px;
 }
