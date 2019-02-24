@@ -55,6 +55,7 @@ input#terms-checkbox {
 label#terms-label {
   width: 200px;
   font-size: 12px;
+  padding: 20px;
 }
 
 button {

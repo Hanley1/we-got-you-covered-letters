@@ -61,6 +61,7 @@ function submit() {
 
   var termsLabel = document.getElementById('terms-label');
   termsLabel.style.color = 'black';
+  termsLabel.style.backgroundColor = 'transparent';
 
   if (document.getElementById('terms-checkbox').checked) {
 
@@ -81,7 +82,8 @@ function submit() {
 
   } else {
 
-    termsLabel.style.color = 'red';
+    termsLabel.style.color = 'white';
+    termsLabel.style.backgroundColor = 'red';
   }
 
 
